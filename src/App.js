@@ -1,21 +1,36 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
+import "./App.css";
+import { ErrorBoundary, NavBar } from "./components";
+import { Home, Contacts, Contact, Help } from "./routes";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+const RouteNotFound = () => <Redirect to="/" />;
+
+const App = () => (
+  <ErrorBoundary>
+    <Router>
+      <React.Fragment>
+        <Route path={process.env.PUBLIC_URL + "/"} component={NavBar} />
+        <Route exact path={process.env.PUBLIC_URL + "/"} component={Home} />
+        <Route
+          exact
+          path={process.env.PUBLIC_URL + "/contacts"}
+          component={Contacts}
+        />
+        <Route
+          path={process.env.PUBLIC_URL + "/contacts/:id"}
+          component={Contact}
+        />
+        <Route exact path={process.env.PUBLIC_URL + "/help"} component={Help} />
+        <Route path="*" component={RouteNotFound} />
+      </React.Fragment>
+    </Router>
+  </ErrorBoundary>
+);
 
 export default App;
