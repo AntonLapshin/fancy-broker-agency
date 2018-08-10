@@ -7,9 +7,10 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import { ErrorBoundary } from "./components";
-import Menu from "./containers/menu/Menu";
+import Menu from "containers/menu/Menu";
+import ErrorHandler from "containers/errorHandler/ErrorHandler";
 import { default as urls, Home, Contacts, Contact, Help } from "./routes";
-import DataServiceContext from "contexts/dataServiceContext";
+import { DataServiceContext, dataService } from "contexts/dataServiceContext";
 
 const RouteNotFound = () => <Redirect to={urls.home} />;
 
@@ -21,7 +22,10 @@ const App = () => (
           <Menu />
         </header>
         <section className="body">
-          <DataServiceContext.Provider>
+          <DataServiceContext.Provider value={dataService}>
+            <DataServiceContext.Consumer>
+              {dataService => <ErrorHandler dataService={dataService} />}
+            </DataServiceContext.Consumer>
             <Switch>
               <Route exact path={urls.home} component={Home} />
               <Route path={urls.contacts} component={Contacts} />

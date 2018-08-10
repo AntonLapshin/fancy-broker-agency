@@ -3,6 +3,7 @@
 export { default as CustomerMarker } from "./CustomerMarker/CustomerMarker.js";
 export { default as CustomerWidget } from "./CustomerWidget/CustomerWidget.js";
 export { default as ErrorBoundary } from "./ErrorBoundary/ErrorBoundary.js";
+export { default as ErrorMessage } from "./ErrorMessage/ErrorMessage.js";
 export { default as Grid } from "./Grid/Grid.js";
 export { default as MapWidget } from "./MapWidget/MapWidget.js";
 export { default as NavBar } from "./NavBar/NavBar.js";

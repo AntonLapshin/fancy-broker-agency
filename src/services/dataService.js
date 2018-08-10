@@ -1,5 +1,6 @@
 import { throttle } from "lodash";
 import config from "constants/config";
+import PubSub from "helpers/pubsub";
 
 export class IDataProvider {
   getAllContacts;
@@ -7,10 +8,12 @@ export class IDataProvider {
 }
 
 export default class DataService extends IDataProvider {
+  pubsub = new PubSub();
+
   constructor(provider) {
     super();
     if (!provider) {
-      throw new Error("A provider instance is required");
+      this.pubsub.fire("error", "A provider instance is required");
     }
     this.provider = provider;
   }
@@ -25,7 +28,7 @@ export default class DataService extends IDataProvider {
       result = await this.inProgress[methodName];
     } catch (e) {
       this.inProgress[methodName] = null;
-      throw e;
+      this.pubsub.fire("error", e.message);
     }
     this.inProgress[methodName] = null;
     return result;
