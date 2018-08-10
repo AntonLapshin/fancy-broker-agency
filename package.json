@@ -59,6 +59,7 @@
     "build": "npm-run-all build-css build-js",
     "test": "node scripts/test.js --env=jsdom",
     "deploy": "./node_modules/.bin/gh-pages -d build",
+    "pull-components": "cp -Rf ../react-component-viewer/src/components/ src/components/",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "devDependencies": {
