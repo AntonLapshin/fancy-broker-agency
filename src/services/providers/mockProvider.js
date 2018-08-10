@@ -1,8 +1,9 @@
 import { IDataProvider } from "services/dataService";
 
-const mockDataUrl = "mock/data.json";
+const mockDataUrl =
+  "https://raw.githubusercontent.com/AntonLapshin/sc-frontend-challenge/master/data.json";
 
-export class MockProvider extends IDataProvider {
+export default class MockProvider extends IDataProvider {
   data = {};
 
   async getAllContacts() {

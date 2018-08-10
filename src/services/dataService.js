@@ -6,7 +6,7 @@ export class IDataProvider {
   getContact;
 }
 
-export class DataService extends IDataProvider {
+export default class DataService extends IDataProvider {
   constructor(provider) {
     super();
     if (!provider) {
