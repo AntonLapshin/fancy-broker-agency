@@ -7,13 +7,16 @@ export class IDataProvider {
   getContact;
 }
 
+const instanceErrorMessage = "A provider instance is required";
+
 export default class DataService extends IDataProvider {
   pubsub = new PubSub();
 
   constructor(provider) {
     super();
     if (!provider) {
-      this.pubsub.fire("error", "A provider instance is required");
+      this.pubsub.fire("error", instanceErrorMessage);
+      return;
     }
     this.provider = provider;
   }
@@ -21,6 +24,10 @@ export default class DataService extends IDataProvider {
   inProgress = {};
 
   async callProvider(methodName, ...params) {
+    if (!this.provider){
+      this.pubsub.fire("error", instanceErrorMessage);
+      return null;
+    }
     this.inProgress[methodName] =
       this.inProgress[methodName] || this.provider[methodName](...params);
     let result;
