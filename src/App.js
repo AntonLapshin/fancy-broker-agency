@@ -32,16 +32,23 @@ const menu = {
 const App = () => (
   <ErrorBoundary>
     <Router history={history}>
-      <React.Fragment>
-        <NavBar {...menu} />
-        <Switch>
-          <Route exact path={urls.home} component={Home} />
-          <Route exact path={urls.contacts} component={Contacts} />
-          <Route path={urls.contact} component={Contact} />
-          <Route exact path={urls.help} component={Help} />
-          <Route path="*" component={RouteNotFound} />
-        </Switch>
-      </React.Fragment>
+      <div className="app">
+        <header>
+          <NavBar {...menu} />
+        </header>
+        <section className="body">
+          <Switch>
+            <Route exact path={urls.home} component={Home} />
+            <Route exact path={urls.contacts} component={Contacts} />
+            <Route path={urls.contact} component={Contact} />
+            <Route exact path={urls.help} component={Help} />
+            <Route path="*" component={RouteNotFound} />
+          </Switch>
+        </section>
+        <footer>
+          <h3>Fancy Broker Agency</h3>
+        </footer>
+      </div>
     </Router>
   </ErrorBoundary>
 );
