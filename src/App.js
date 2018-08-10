@@ -1,10 +1,10 @@
 import React from "react";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
-import { ErrorBoundary, NavBar } from "./components";
+import { ErrorBoundary } from "./components";
+import Menu from "./containers/menu/Menu";
 import {
   default as urls,
-  history,
   Home,
   Contacts,
   Contact,
@@ -13,40 +13,25 @@ import {
 
 const RouteNotFound = () => <Redirect to={urls.home} />;
 
-const menu = {
-  items: [
-    {
-      name: "Home"
-    },
-    {
-      name: "Contacts"
-    },
-    {
-      name: "Help"
-    }
-  ],
-  pathname: "Home",
-  changeHandler: item => window.notify("Selected item: " + item.name)
-};
-
 const App = () => (
   <ErrorBoundary>
-    <Router history={history}>
+    <Router>
       <div className="app">
         <header>
-          <NavBar {...menu} />
+          <Menu />
         </header>
         <section className="body">
           <Switch>
             <Route exact path={urls.home} component={Home} />
-            <Route exact path={urls.contacts} component={Contacts} />
+            <Route path={urls.contacts} component={Contacts} />
             <Route path={urls.contact} component={Contact} />
             <Route exact path={urls.help} component={Help} />
-            <Route path="*" component={RouteNotFound} />
+            <Route component={RouteNotFound} />
           </Switch>
         </section>
         <footer>
           <h3>Fancy Broker Agency</h3>
+          <p className="tagline">We know how much you owe us</p>
         </footer>
       </div>
     </Router>
