@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router";
 import { matchPath } from "react-router";
 import { NavBar } from "components";
 import urls from "routes";
-import { withRouter } from "react-router";
 
 const items = [
   {
