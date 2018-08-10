@@ -27,7 +27,15 @@ const App = () => (
               {dataService => <ErrorHandler dataService={dataService} />}
             </DataServiceContext.Consumer>
             <Switch>
-              <Route exact path={urls.home} component={Home} />
+              <DataServiceContext.Consumer>
+                {dataService => (
+                  <Route
+                    exact
+                    path={urls.home}
+                    component={() => <Home dataService={dataService} />}
+                  />
+                )}
+              </DataServiceContext.Consumer>
               <Route path={urls.contacts} component={Contacts} />
               <Route path={urls.contact} component={Contact} />
               <Route exact path={urls.help} component={Help} />

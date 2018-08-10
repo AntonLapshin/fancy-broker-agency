@@ -7,7 +7,7 @@
 
   .body {
     flex-grow: 1;
-    padding: 1rem;
+    background-color: #ddd;
   }
 
   header, footer {
@@ -28,7 +28,7 @@
   
   footer {
     flex-direction: column;
-    
+
     .tagline {
       margin: 0;
       color: #ccc;

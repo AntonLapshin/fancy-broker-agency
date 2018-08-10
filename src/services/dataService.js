@@ -24,7 +24,7 @@ export default class DataService extends IDataProvider {
   inProgress = {};
 
   async callProvider(methodName, ...params) {
-    if (!this.provider){
+    if (!this.provider) {
       this.pubsub.fire("error", instanceErrorMessage);
       return null;
     }
@@ -33,6 +33,7 @@ export default class DataService extends IDataProvider {
     let result;
     try {
       result = await this.inProgress[methodName];
+      this.pubsub.fire("received", { methodName, result });
     } catch (e) {
       this.inProgress[methodName] = null;
       this.pubsub.fire("error", e.message);
