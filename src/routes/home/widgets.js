@@ -14,9 +14,9 @@ export default [
     getProps: randomDelay(contacts => ({
       items: contacts.map(contact => ({
         id: contact.guid,
-        label: createLabel(contact.balance, false),
-        lat: contact.latitude,
-        lng: contact.longitude
+        label: createLabel({ balance: contact.balance, isSelected: false }),
+        lat: +contact.latitude,
+        lng: +contact.longitude
       }))
     }))
   },
@@ -26,7 +26,7 @@ export default [
     apiMethod: "getAllContacts",
     getProps: randomDelay(contacts => ({
       title: "Customer count",
-      value: contacts.length
+      value: contacts.length.toString()
     }))
   },
   {
@@ -35,7 +35,7 @@ export default [
     apiMethod: "getAllContacts",
     getProps: randomDelay(contacts => ({
       title: "Average age",
-      value: ~~calcMean(contacts.map(contact => contact.age))
+      value: (~~calcMean(contacts.map(contact => contact.age))).toString()
     }))
   },
   {

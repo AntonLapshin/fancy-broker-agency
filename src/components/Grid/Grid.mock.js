@@ -67,8 +67,8 @@ export default {
   widgets: [
     <MapWidget {...MapWidgetMock} />,
     <CustomerWidget {...CustomerWidgetMock} />,
-    <ValueWidget title="Customer count" value="132" />,
+    <ValueWidget title="Customer Count" value="132" />,
     <ValueWidget title="Average age" value="33" />,
-    <ValueWidget title="Standard deviation" value="300" />
+    <ValueWidget title="Standard Deviation" value="300" />
   ]
 };

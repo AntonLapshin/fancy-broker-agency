@@ -15,7 +15,7 @@ class Home extends React.PureComponent {
   }
 
   componentWillMount() {
-      this.reset();
+    this.reset();
     widgetsMeta.forEach(w => this.props.dataService[w.apiMethod]());
     this.props.dataService.pubsub.on("received", ({ methodName, result }) => {
       widgetsMeta.filter(w => w.apiMethod === methodName).forEach(async w => {

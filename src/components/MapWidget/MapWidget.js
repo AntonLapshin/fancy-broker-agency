@@ -11,8 +11,8 @@ const labelStyles = {
   width: "100px"
 };
 const labelAnchor = { x: 50, y: 0 };
-const defaultZoom = 9;
-const defaultCenter = { lat: -34.397, lng: 150.644 };
+const defaultZoom = 2;
+const defaultCenter = { lat: 48, lng: 11 };
 
 const MapWidget = compose(
   withProps({
