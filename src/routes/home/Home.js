@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid } from "components";
+import { Grid, LoadIndicator } from "components";
 import options from "constants/grid";
 import layout from "./layout";
 import widgetsMeta from "./widgets";
@@ -36,7 +36,12 @@ class Home extends React.PureComponent {
 
   render() {
     const widgets = this.state.widgets.map(
-      w => (w.isPending ? <div>Loading...</div> : <w.component {...w.props} />)
+      w =>
+        w.isPending ? (
+          <LoadIndicator />
+        ) : (
+          <w.component {...w.props} />
+        )
     );
     return <Grid {...{ layout, options, widgets }} />;
   }
