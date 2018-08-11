@@ -38,7 +38,15 @@ const App = () => (
                   </DataServiceContext.Consumer>
                 )}
               />
-              <Route exact path={urls.contacts} component={Contacts} />
+              <Route
+                exact
+                path={urls.contacts}
+                component={() => (
+                  <DataServiceContext.Consumer>
+                    {dataService => <Contacts dataService={dataService} />}
+                  </DataServiceContext.Consumer>
+                )}
+              />
               <Route path={urls.contact} component={Contact} />
               <Route exact path={urls.help} component={Help} />
               <Route component={RouteNotFound} />
