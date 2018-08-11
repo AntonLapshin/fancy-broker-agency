@@ -1,4 +1,4 @@
-import { throttle } from "lodash";
+import throttle from "lodash/throttle";
 import config from "constants/config";
 import PubSub from "helpers/pubsub";
 

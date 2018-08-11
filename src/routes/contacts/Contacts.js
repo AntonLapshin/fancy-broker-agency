@@ -1,12 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { PaginationTable, LoadIndicator } from "components";
+import "./Contacts.css";
+import debounce from "lodash/debounce";
+import { PaginationTable, LoadIndicator, Search } from "components";
 import options, { visibleColumns } from "constants/table";
 import dataTransform from "./dataTransform";
+import config from "constants/config";
+import Fuse from "fuse.js";
 
 const apiMethod = "getAllContacts";
 class Contacts extends React.PureComponent {
-  state = { data: [] };
+  state = { data: [], searchPattern: "" };
+
+  fuse;
 
   componentDidMount() {
     this._isMounted = true;
@@ -39,26 +45,39 @@ class Contacts extends React.PureComponent {
       return;
     }
     const data = await dataTransform(result);
-    this.setState({ data, isPending: false });
+    const keys = Object.keys(data[0]);
+    this.fuse = new Fuse(data, { keys: keys });
+    this.setState({ ...this.state, data, isPending: false });
   };
 
+  updateSearchPattern = debounce(
+    searchPattern => this.setState({ ...this.state, searchPattern }),
+    config.debounceDelay
+  );
+
   render() {
+    const { searchPattern, data, isPending } = this.state;
+    const visibleData =
+      searchPattern.length > 0 && isPending === false && data.length > 0
+        ? this.fuse.search(searchPattern)
+        : data;
     const content =
-      !this.state.isPending && this.state.data.length === 0 ? (
+      !isPending && data.length === 0 ? (
         <div />
-      ) : this.state.isPending ? (
+      ) : isPending ? (
         <LoadIndicator />
       ) : (
         <div>
+          <Search changeHandler={this.updateSearchPattern} />
           <PaginationTable
-            data={this.state.data}
+            data={visibleData}
             options={options}
             visibleColumns={visibleColumns}
           />
         </div>
       );
 
-    return <div className="page">{content}</div>;
+    return <div className="page contacts-page">{content}</div>;
   }
 }
 
