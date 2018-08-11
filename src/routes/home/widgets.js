@@ -3,6 +3,7 @@ import { MapWidget, CustomerMarker, ValueWidget } from "components";
 import calcMean from "helpers/math/mean";
 import calcStd from "helpers/math/std";
 import randomDelay from "helpers/randomDelay";
+import urls, { goto } from "routes";
 
 const createLabel = props => <CustomerMarker {...props} />;
 
@@ -17,7 +18,8 @@ export default [
         label: createLabel({ balance: contact.balance, isSelected: false }),
         lat: +contact.latitude,
         lng: +contact.longitude
-      }))
+      })),
+      clickHandler: id => goto(urls.contact.replace(":id", id))
     }))
   },
   {

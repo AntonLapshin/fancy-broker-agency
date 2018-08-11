@@ -9,6 +9,7 @@ class Home extends React.PureComponent {
   state = { widgets: new Array(widgetsMeta.length).fill(null) };
 
   componentDidMount() {
+    this._isMounted = true;      
     const { dataService } = this.props;
     dataService.pubsub.on("requested", this.dataRequested);
     dataService.pubsub.on("received", this.dataReceived);
@@ -19,6 +20,7 @@ class Home extends React.PureComponent {
     const { dataService } = this.props;
     dataService.pubsub.off(this.dataReceived);
     dataService.pubsub.off(this.dataRequested);
+    this._isMounted = false;
   }
 
   requestData() {
@@ -45,9 +47,10 @@ class Home extends React.PureComponent {
         props: props
       };
 
-      this.setState({
-        widgets: newWidgets
-      });
+      this._isMounted &&
+        this.setState({
+          widgets: newWidgets
+        });
     });
   };
 
