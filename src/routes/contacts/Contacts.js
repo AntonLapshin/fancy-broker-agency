@@ -49,11 +49,13 @@ class Contacts extends React.PureComponent {
       ) : this.state.isPending ? (
         <LoadIndicator />
       ) : (
-        <PaginationTable
-          data={this.state.data}
-          options={options}
-          visibleColumns={visibleColumns}
-        />
+        <div>
+          <PaginationTable
+            data={this.state.data}
+            options={options}
+            visibleColumns={visibleColumns}
+          />
+        </div>
       );
 
     return <div className="page">{content}</div>;

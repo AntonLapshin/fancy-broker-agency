@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./Home.css";
 import { Grid, LoadIndicator } from "components";
 import options from "constants/grid";
 import layout from "./layout";
@@ -9,7 +10,7 @@ class Home extends React.PureComponent {
   state = { widgets: new Array(widgetsMeta.length).fill(null) };
 
   componentDidMount() {
-    this._isMounted = true;      
+    this._isMounted = true;
     const { dataService } = this.props;
     dataService.pubsub.on("requested", this.dataRequested);
     dataService.pubsub.on("received", this.dataReceived);
@@ -65,7 +66,12 @@ class Home extends React.PureComponent {
           <w.component {...w.props} />
         )
     );
-    return <Grid {...{ layout, options, widgets }} />;
+
+    return (
+      <div className="page home-page">
+        <Grid {...{ layout, options, widgets }} />
+      </div>
+    );
   }
 }
 
