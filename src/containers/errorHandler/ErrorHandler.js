@@ -5,10 +5,14 @@ import { ErrorMessage } from "components";
 class ErrorHandler extends React.PureComponent {
   state = { message: null };
 
+  setMessage = message => this.setState({ message });
+
   componentWillMount() {
-    this.props.dataService.pubsub.on("error", message => {
-      this.setState({ message });
-    });
+    this.props.dataService.pubsub.on("error", this.setMessage);
+  }
+
+  componentWillUnmount() {
+    this.props.dataService.pubsub.off(this.setMessage);
   }
 
   render() {

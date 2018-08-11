@@ -16,7 +16,6 @@ class Contacts extends React.PureComponent {
   fuse;
 
   componentDidMount() {
-    this._isMounted = true;
     const { dataService } = this.props;
     dataService.pubsub.on("requested", this.dataRequested);
     dataService.pubsub.on("received", this.dataReceived);
@@ -27,7 +26,6 @@ class Contacts extends React.PureComponent {
     const { dataService } = this.props;
     dataService.pubsub.off(this.dataReceived);
     dataService.pubsub.off(this.dataRequested);
-    this._isMounted = false;
   }
 
   requestData() {

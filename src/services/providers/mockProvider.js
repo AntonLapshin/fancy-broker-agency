@@ -1,7 +1,7 @@
 import { IDataProvider } from "services/dataService";
 
 const mockDataUrl =
-  "https://raw.githubusercontent.com/allquantor/sc-frontend-challenge/master/data.json";
+  "https://raw.githubusercontent.com/AntonLapshin/fancy-broker-agency/master/src/services/providers/mockData.json";
 
 export default class MockProvider extends IDataProvider {
   data = {};
