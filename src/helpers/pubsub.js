@@ -1,3 +1,7 @@
+/**
+ * Taken from https://github.com/AntonLapshin/proxy-observable
+ */
+
 export default class PubSub {
   /**
    * Creates an instance of PubSub

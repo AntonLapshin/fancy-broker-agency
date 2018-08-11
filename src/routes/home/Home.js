@@ -6,38 +6,57 @@ import layout from "./layout";
 import widgetsMeta from "./widgets";
 
 class Home extends React.PureComponent {
-  state = { widgets: [] };
+  state = { widgets: new Array(widgetsMeta.length).fill(null) };
 
-  reset() {
-    this.setState({
-      widgets: widgetsMeta.map(w => ({ id: w.id, isPending: true }))
-    });
+  componentDidMount() {
+    const { dataService } = this.props;
+    dataService.pubsub.on("requested", this.dataRequested);
+    dataService.pubsub.on("received", this.dataReceived);
+    this.requestData();
   }
 
-  componentWillMount() {
-    this.reset();
-    widgetsMeta.forEach(w => this.props.dataService[w.apiMethod]());
-    this.props.dataService.pubsub.on("received", ({ methodName, result }) => {
-      widgetsMeta.filter(w => w.apiMethod === methodName).forEach(async w => {
-        const props = await w.getProps(result);
-        const newWidgets = [...this.state.widgets];
-        newWidgets[w.id] = {
-          isPending: false,
-          component: w.component,
-          props: props
-        };
+  componentWillUnmount() {
+    const { dataService } = this.props;
+    dataService.pubsub.off(this.dataReceived);
+    dataService.pubsub.off(this.dataRequested);
+  }
 
-        this.setState({
-          widgets: newWidgets
-        });
+  requestData() {
+    widgetsMeta.forEach(w => this.props.dataService[w.apiMethod]());
+  }
+
+  dataRequested = ({ methodName }) => {
+    const newWidgets = [...this.state.widgets];
+    widgetsMeta.filter(w => w.apiMethod === methodName).forEach(w => {
+      newWidgets[w.id] = {
+        isPending: true
+      };
+    });
+    this.setState({ widgets: newWidgets });
+  };
+
+  dataReceived = ({ methodName, result }) => {
+    widgetsMeta.filter(w => w.apiMethod === methodName).forEach(async w => {
+      const props = await w.getProps(result);
+      const newWidgets = [...this.state.widgets];
+      newWidgets[w.id] = {
+        isPending: false,
+        component: w.component,
+        props: props
+      };
+
+      this.setState({
+        widgets: newWidgets
       });
     });
-  }
+  };
 
   render() {
     const widgets = this.state.widgets.map(
       w =>
-        w.isPending ? (
+        !w ? (
+          <div />
+        ) : w.isPending ? (
           <LoadIndicator />
         ) : (
           <w.component {...w.props} />

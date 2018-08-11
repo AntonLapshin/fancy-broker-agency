@@ -30,6 +30,7 @@ export default class DataService extends IDataProvider {
     }
     this.inProgress[methodName] =
       this.inProgress[methodName] || this.provider[methodName](...params);
+    this.pubsub.fire("requested", { methodName });
     let result;
     try {
       result = await this.inProgress[methodName];
