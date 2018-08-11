@@ -1,15 +1,17 @@
 import React from "react";
-import {
-  Router,
-  Route,
-  Switch,
-  Redirect
-} from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import { ErrorBoundary } from "./components";
 import Menu from "containers/menu/Menu";
 import ErrorHandler from "containers/errorHandler/ErrorHandler";
-import { default as urls, history, Home, Contacts, Contact, Help } from "./routes";
+import {
+  default as urls,
+  history,
+  Home,
+  Contacts,
+  Contact,
+  Help
+} from "./routes";
 import { DataServiceContext, dataService } from "contexts/dataServiceContext";
 
 const RouteNotFound = () => <Redirect to={urls.home} />;
@@ -27,15 +29,15 @@ const App = () => (
               {dataService => <ErrorHandler dataService={dataService} />}
             </DataServiceContext.Consumer>
             <Switch>
-              <DataServiceContext.Consumer>
-                {dataService => (
-                  <Route
-                    exact
-                    path={urls.home}
-                    component={() => <Home dataService={dataService} />}
-                  />
+              <Route
+                exact
+                path={urls.home}
+                component={() => (
+                  <DataServiceContext.Consumer>
+                    {dataService => <Home dataService={dataService} />}
+                  </DataServiceContext.Consumer>
                 )}
-              </DataServiceContext.Consumer>
+              />
               <Route exact path={urls.contacts} component={Contacts} />
               <Route path={urls.contact} component={Contact} />
               <Route exact path={urls.help} component={Help} />

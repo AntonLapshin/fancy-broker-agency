@@ -8,6 +8,10 @@
   .body {
     flex-grow: 1;
     background-color: #ddd;
+
+    .page {
+      padding: 1rem;
+    }
   }
 
   header, footer {
