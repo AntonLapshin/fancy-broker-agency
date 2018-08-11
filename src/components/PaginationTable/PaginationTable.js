@@ -11,12 +11,7 @@ const defaultOptions = {
 const PaginationTable = props => {
   const { data, options, visibleColumns } = props;
 
-  let keys = Object.keys(data[0]);
-  if (visibleColumns) {
-    keys = keys.filter(key => visibleColumns.includes(key));
-  }
-
-  const columns = keys.map(key => ({
+  const columns = visibleColumns.map(key => ({
     Header: key,
     accessor: key
   }));
@@ -34,7 +29,7 @@ const PaginationTable = props => {
 
 PaginationTable.props = {
   data: PropTypes.array.isRequired,
-  visibleColumns: PropTypes.array,
+  visibleColumns: PropTypes.array.isRequired,
   options: PropTypes.object
 };
 
