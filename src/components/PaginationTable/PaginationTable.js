@@ -9,7 +9,7 @@ const defaultOptions = {
 };
 
 const PaginationTable = props => {
-  const { data, options, visibleColumns } = props;
+  const { data, options, visibleColumns, rowClickHandler } = props;
 
   const columns = visibleColumns.map(key => ({
     Header: key,
@@ -19,6 +19,16 @@ const PaginationTable = props => {
   return (
     <div className="pagination-table">
       <ReactTable
+        getTdProps={(state, rowInfo, column, instance) => {
+          return {
+            onClick: (e, handleOriginal) => {
+              rowClickHandler && rowClickHandler(rowInfo.original);
+              if (handleOriginal) {
+                handleOriginal();
+              }
+            }
+          };
+        }}
         data={data}
         columns={columns}
         {...{ ...defaultOptions, ...options }}
@@ -30,7 +40,8 @@ const PaginationTable = props => {
 PaginationTable.props = {
   data: PropTypes.array.isRequired,
   visibleColumns: PropTypes.array.isRequired,
-  options: PropTypes.object
+  options: PropTypes.object,
+  rowClickHandler: PropTypes.func
 };
 
 export default PaginationTable;

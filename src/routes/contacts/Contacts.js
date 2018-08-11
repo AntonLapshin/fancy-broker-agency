@@ -7,6 +7,7 @@ import options, { visibleColumns } from "constants/table";
 import dataTransform from "./dataTransform";
 import config from "constants/config";
 import Fuse from "fuse.js";
+import urls, { goto } from "routes";
 
 const apiMethod = "getAllContacts";
 class Contacts extends React.PureComponent {
@@ -55,6 +56,10 @@ class Contacts extends React.PureComponent {
     config.debounceDelay
   );
 
+  gotoContact = item => {
+    goto(urls.contact.replace(":id", item.guid));
+  };
+
   render() {
     const { searchPattern, data, isPending } = this.state;
     const visibleData =
@@ -73,6 +78,7 @@ class Contacts extends React.PureComponent {
             data={visibleData}
             options={options}
             visibleColumns={visibleColumns}
+            rowClickHandler={this.gotoContact}
           />
         </div>
       );
