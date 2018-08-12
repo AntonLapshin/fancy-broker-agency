@@ -77,11 +77,15 @@ yarn run-docker
 
 ## Writing tests for the critical parts of the app.
 
-Well, the most critical part in my eyes are math operations that I implemented by myself and mounting and unmounting the App component. Here are the available tests:
+Well, the most critical part in my eyes are math operations that I implemented by myself. And it is always useful to check if your App component is mounted and unmounted properly without any exceptions. Here are the available tests:
 
+```
  PASS  src/App.test.js 
  PASS  src/helpers/math/std.test.js 
  PASS  src/helpers/math/mean.test.js
+```
+
+The next step would be covering dataService.js and after some refactoring of the App there will be definitely some common functions that also can be tested.
 
 ## What are the critical structures of the application, what are the possible bottlenecks, what you had did when you had more time. We are curious of your thoughts!
 
