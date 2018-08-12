@@ -43,13 +43,24 @@ export default class DataService extends IDataProvider {
     return result;
   }
 
+  /**
+   * Gets all contacts
+   * 
+   * returns {Promise<Array>} a set of contacts 
+   */
   getAllContacts = throttle(
     () => this.callProvider("getAllContacts"),
     config.throttleDuration
   );
 
-  getAllContact = throttle(
-    id => this.callProvider("getAllContacts", id),
+  /**
+   * Gets a contact by id
+   * 
+   * param {string} id
+   * returns {Promise<Object>} a contact with the certain id
+   */
+  getContact = throttle(
+    id => this.callProvider("getContact", id),
     config.throttleDuration
   );
 }
