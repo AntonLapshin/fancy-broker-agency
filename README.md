@@ -12,9 +12,9 @@ A few notes:
 
 * It is possible to click at Google Maps markers and rows of the table on the Contacts page to go to the Contact page (the page is not implemented though) just to show how the child routes concept works.
 
-* For full-text search [Fuse.js](http://fusejs.io/) library was used which is configurable and that works pretty nice with default config even though you might not expect sometimes why you are getting certain results :) It gets more relevant matches and also gives a chance to some others which are pretty close to your request in case if you make a typo.
+* For full-text search [Fuse.js](http://fusejs.io/) library was used which is configurable but works pretty nice with default config even though you might not expect sometimes why you are getting certain results :) It gets more relevant matches and also gives a chance to some others which are pretty close to your request in case if you make a typo.
 
-* All components (`src/components/` folder) were implemented in a separate [project](https://github.com/AntonLapshin/react-component-viewer/tree/fancy-broker). The live demo of the sandbox station is available [here](https://antonlapshin.github.io/react-component-viewer/). Some thoughts about this idea I put in a post on medium.com which is available here https://medium.com/@antvallap/how-to-create-clean-and-reusable-react-components-in-your-project-9885cbc29dde
+* All components (`src/components/` folder) were implemented in a separate [project](https://github.com/AntonLapshin/react-component-viewer/tree/fancy-broker). A live demo of the sandbox station is available [here](https://antonlapshin.github.io/react-component-viewer/). Some thoughts about this idea I put in a post on medium.com which is available here https://medium.com/@antvallap/how-to-create-clean-and-reusable-react-components-in-your-project-9885cbc29dde
 
 * I spent more than 4 hours (~15 hours) but I think I did pay too much attention to the details because I was really enjoying and wanted to do a good job. 
 
@@ -43,6 +43,7 @@ yarn start
 
 ```
 yarn build
+yarn build --production
 ```
 
 ## Pull components from [Components viewer station](https://github.com/AntonLapshin/react-component-viewer/tree/fancy-broker)
@@ -85,7 +86,7 @@ Well, the most critical part in my eyes are math operations that I implemented b
  PASS  src/helpers/math/mean.test.js
 ```
 
-The next step would be covering dataService.js and after some refactoring of the App there will be definitely some common functions that also can be tested.
+The next step would be covering dataService.js and after some refactoring of the App there will be definitely some common functions that also should be tested.
 
 ## What are the critical structures of the application, what are the possible bottlenecks, what you had did when you had more time. We are curious of your thoughts!
 
@@ -97,7 +98,7 @@ The next step would be covering dataService.js and after some refactoring of the
 
 * TypeScript or Flow would be definitely a move forward. 
 
-* Add responsivness to the APP, make the app work nice on the mobile devices and tablets. It is possible to achieve with pure css or in case when it's tricky via Responsive HOC that will deliver deviceWith as a prop to the components.
+* Add responsivness to the APP, make the app work nice on the mobile devices and tablets. It is possible to achieve this with pure css or in case when it's getting tricky via Responsive HOC that will deliver deviceWidth as a prop to the components.
 
 * Having a global state (redux or context) would be very practical (Time travelling, easy debugging, immutability that can be provided by Immutable.JS, minimizing side effects)
 
