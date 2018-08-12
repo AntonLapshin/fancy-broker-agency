@@ -57,9 +57,33 @@ A few notes:
 
 * This step is not required. The components could be modified directly in the project if you do not want to follow that nice concept of working on components independently.
 
-# Answers
+# Bonus
 
-> What are the critical structures of the application, what are the possible bottlenecks, what you had did when you had more time. We are curious of your thoughts!
+## Dockerizing your application.
+
+* Build a docker image
+
+```
+yarn dockerize
+```
+
+* Run it locally
+
+```
+yarn run-docker
+```
+
+* Go to http://localhost:5000
+
+## Writing tests for the critical parts of the app.
+
+Well, the most critical part in my eyes are math operations that I implemented by myself and mounting and unmounting the App component. Here are the available tests:
+
+ PASS  src/App.test.js 
+ PASS  src/helpers/math/std.test.js 
+ PASS  src/helpers/math/mean.test.js
+
+## What are the critical structures of the application, what are the possible bottlenecks, what you had did when you had more time. We are curious of your thoughts!
 
 * This is just a prototype that of course works pretty good with a small amount of data. Even though UI is not blocked by any sync action in the APP (there are some actually [dataTransform, PaginationTable initialization], but we can easily fix that) the bottleneck is definitely in getting a big amount of data from the server and manipulating the data on the client side. Considering a really big amount of data I would prefer to implement a real server side pagination and search requests. By this we can guarantee that we deliver a small amount of data to the client which will make the app work really fast. It would also make sense to move the heavy math operations (std, full-text search) to the web workers. This is a perfect tool for that. Depending on the server side and client side roles in that of course. Anyway, the prototype is pretty close to a solution that can provide 60fps even for slow devices.
 
@@ -75,5 +99,5 @@ A few notes:
 
 * I don't like so much that handmade solution for the client-server communication that I created. Eventually it will grow to a real framework then why don't use something tried-and-true that is already out there and supported by the community (Redux Saga, Apiary, RxJs or something else).
 
-Hope you are not bored to death reading the whole thing xD
+Hope you are not bored to death after reading the whole thing xD
 

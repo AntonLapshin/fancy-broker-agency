@@ -65,7 +65,12 @@
     "test": "node scripts/test.js --env=jsdom",
     "deploy": "./node_modules/.bin/gh-pages -d build",
     "pull-components": "cp -Rf ../react-component-viewer/src/components/ src/components/",
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "dockerize": "docker build -t fancy-broker-agency .",
+    "run-docker": "docker run -p 5000:5000 fancy-broker-agency"
+  },
+  "optionalDependencies": {
+    "fsevents": "*"
   },
   "devDependencies": {
     "@storybook/react": "^3.4.10"
@@ -111,6 +116,5 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "homepage": "https://antonlapshin.github.io/fancy-broker-agency"
+  }
 }
