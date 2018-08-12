@@ -1,5 +1,6 @@
 /**
  * Taken from https://github.com/AntonLapshin/proxy-observable
+ * and it is covered by unit tests out there
  */
 
 export default class PubSub {
