@@ -4,7 +4,7 @@ const mockDataUrl =
   "https://raw.githubusercontent.com/AntonLapshin/fancy-broker-agency/master/src/services/providers/mockData.json";
 
 export default class MockProvider extends IDataProvider {
-  data = {};
+  data;
 
   async getAllContacts() {
     const json = await fetch(mockDataUrl).then(response => response.json());
