@@ -44,8 +44,10 @@ class Contacts extends React.PureComponent {
       return;
     }
     const data = await dataTransform(result);
-    const keys = Object.keys(data[0]);
-    this.fuse = new Fuse(data, { keys: keys });
+    if (data.length > 0) {
+      const keys = Object.keys(data[0]);
+      this.fuse = new Fuse(data, { keys: keys });
+    }
     this.setState({ ...this.state, data, isPending: false });
   };
 
@@ -60,26 +62,25 @@ class Contacts extends React.PureComponent {
 
   render() {
     const { searchPattern, data, isPending } = this.state;
-    const visibleData =
-      searchPattern.length > 0 && isPending === false && data.length > 0
-        ? this.fuse.search(searchPattern)
-        : data;
-    const content =
-      !isPending && data.length === 0 ? (
-        <div />
-      ) : isPending ? (
-        <LoadIndicator />
-      ) : (
-        <div>
-          <Search changeHandler={this.updateSearchPattern} />
-          <PaginationTable
-            data={visibleData}
-            options={options}
-            visibleColumns={visibleColumns}
-            rowClickHandler={this.gotoContact}
-          />
-        </div>
-      );
+    const needsToSearch =
+      searchPattern.length > 0 && isPending === false && data.length > 0;
+    const visibleData = needsToSearch ? this.fuse.search(searchPattern) : data;
+    const notRequestedYet = !isPending && data.length === 0;
+    const content = notRequestedYet ? (
+      <div />
+    ) : isPending ? (
+      <LoadIndicator />
+    ) : (
+      <div>
+        <Search changeHandler={this.updateSearchPattern} />
+        <PaginationTable
+          data={visibleData}
+          options={options}
+          visibleColumns={visibleColumns}
+          rowClickHandler={this.gotoContact}
+        />
+      </div>
+    );
 
     return <div className="page contacts-page">{content}</div>;
   }

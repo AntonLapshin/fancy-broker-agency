@@ -28,25 +28,26 @@ export default class DataService extends IDataProvider {
       this.pubsub.fire("error", instanceErrorMessage);
       return null;
     }
-    this.inProgress[methodName] =
-      this.inProgress[methodName] || this.provider[methodName](...params);
-    this.pubsub.fire("requested", { methodName });
+    const { inProgress, provider, pubsub } = this;
+    inProgress[methodName] =
+      inProgress[methodName] || provider[methodName](...params);
+    pubsub.fire("requested", { methodName });
     let result;
     try {
-      result = await this.inProgress[methodName];
-      this.pubsub.fire("received", { methodName, result });
+      result = await inProgress[methodName];
+      pubsub.fire("received", { methodName, result });
     } catch (e) {
-      this.inProgress[methodName] = null;
-      this.pubsub.fire("error", e.message);
+      inProgress[methodName] = null;
+      pubsub.fire("error", e.message);
     }
-    this.inProgress[methodName] = null;
+    inProgress[methodName] = null;
     return result;
   }
 
   /**
    * Gets all contacts
-   * 
-   * returns {Promise<Array>} a set of contacts 
+   *
+   * returns {Promise<Array>} a set of contacts
    */
   getAllContacts = throttle(
     () => this.callProvider("getAllContacts"),
@@ -55,7 +56,7 @@ export default class DataService extends IDataProvider {
 
   /**
    * Gets a contact by id
-   * 
+   *
    * param {string} id
    * returns {Promise<Object>} a contact with the certain id
    */

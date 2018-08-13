@@ -1,10 +1,11 @@
-import calcStd from "./std";
+import { calcSquareDiffs, prepareToCalcDiffs } from "./std";
 
-//
-// Online service for checking the results
-// https://www.calculator.net/standard-deviation-calculator.html
-//
+test("calc square diffs properly", () => {
+  const result = calcSquareDiffs([[1, 2, 3, 4, 5, 6, 7], 3]);
+  expect(result).toEqual([4, 1, 0, 1, 4, 9, 16]);
+});
 
-test("calc std properly", () => {
-  expect(+calcStd([10,2,38,23,38,23,21,32,12,4,612]).toFixed(11)).toBe(170.51657053332);
+test("prepareToCalcDiffs works properly", () => {
+  const result = prepareToCalcDiffs([1, 2, 3, 4, 5]);
+  expect(result).toEqual([[1, 2, 3, 4, 5], 3]);
 });
